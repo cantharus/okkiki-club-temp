@@ -1,0 +1,196 @@
+:root {
+    font-size: 16px;
+
+    --icon-size: 6rem;
+    --ring-size: 14rem;
+    --bg: #0a0a0a;
+}
+
+body {
+    background-color: var(--bg);
+    background-repeat: repeat;
+    margin: 0;
+    padding: 0;
+}
+
+#noscript {
+    font-size: 4rem;
+    color: red;
+    font-family: "Comic Sans MS", "Comic Neue", "Chalkboard", sans-serif;
+}
+
+#noscript + #all {
+    display: none;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes ring-fade-in {
+    from {
+        transform: scale(0.75);
+        opacity: 0%;
+    }
+    to {
+        transform: scale(1);
+        opacity: 40%;
+    }
+}
+
+.bg {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    contain: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+#bg-mix {
+    isolation: isolate;
+    mix-blend-mode: normal;
+    opacity: 50%;
+    transition: 0.5s ease-out filter, 1s ease-out opacity;
+    filter: sepia(0%) hue-rotate(0deg) saturate(150%) grayscale(0%) brightness(110%) contrast(100%);
+}
+
+#bg-mix.glub {
+    filter: sepia(50%) hue-rotate(-30deg) saturate(160%) grayscale(0%) brightness(120%) contrast(110%);
+}
+
+#bg-mix.critta {
+    filter: sepia(0%) hue-rotate(0deg) saturate(200%) grayscale(100%) brightness(400%) contrast(250%);
+    opacity: 90%;
+}
+
+#bg-mix.cantharus {
+    filter: sepia(100%) hue-rotate(180deg) saturate(100%) grayscale(0%) brightness(110%) contrast(100%);
+}
+
+@keyframes layer1-scroll {
+    0% { background-position: left 0px top 0px; }
+    12.5% { background-position: left -100px top -200px; }
+    25% { background-position: left -200px top -400px; }
+    37.5% { background-position: left -300px top -600px; }
+    50% { background-position: left -400px top -800px; }
+    62.5% { background-position: left -500px top -1000px; }
+    75% { background-position: left -600px top -1200px; }
+    87.5% { background-position: left -700px top -1400px; }
+    100% { background-position: left -800px top -1600px; }
+}
+
+#layer1 {
+    background-image: url(/img/bglayer1.png);
+    animation: 710.9s linear infinite layer1-scroll;
+}
+
+@keyframes layer2-scroll {
+    0% { background-position: left 0px top 0px; }
+    12.5% { background-position: left 800px top 100px; }
+    25% { background-position: left 1600px top 200px; }
+    37.5% { background-position: left 2400px top 300px; }
+    50% { background-position: left 3200px top 400px; }
+    62.5% { background-position: left 4000px top 500px; }
+    75% { background-position: left 4800px top 600px; }
+    87.5% { background-position: left 5600px top 700px; }
+    100% { background-position: left 6400px top 800px; }
+}
+
+#layer2 {
+    background-image: url(/img/bglayer2.png);
+    animation: 571.2s linear infinite layer2-scroll;
+    mix-blend-mode: overlay;
+}
+
+#all {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    contain: none;
+    animation: 2s ease-out fade-in;
+    width: 100vw;
+    height: 100vh;
+}
+
+#ring-mix {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mix-blend-mode: screen;
+}
+
+.ring-hack {
+    position: absolute;
+    contain: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    contain: none;
+    width: var(--ring-size);
+    height: var(--ring-size);
+}
+
+#icon-container {
+    --angle: 0;
+    --radius: 1;
+}
+
+@keyframes ring-zoom-in {
+    from { scale: 0.5; }
+    to { scale: 1; }
+}
+
+#ring {
+    border: 0.2rem solid #666;
+    border-radius: 100%;
+    animation: 2s ease-out ring-zoom-in;
+    transition: 1s ease-out scale;
+}
+
+#icon-container > a {
+    display: inline;
+    position: absolute;
+}
+
+.icon {
+    --angle-offset: 0;
+    contain: none;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    background-size: contain;
+    --translate-x: calc(cos(var(--angle) * 360deg + var(--angle-offset)) * var(--radius) * var(--ring-size) * 0.5);
+    --translate-y: calc(sin(var(--angle) * 360deg + var(--angle-offset)) * var(--radius) * var(--ring-size) * -0.5);
+    translate: var(--translate-x) var(--translate-y);
+    transition: 0.6s ease-out scale;
+}
+
+.icon.shrink {
+    scale: 0.75;
+}
+
+.icon:hover {
+    scale: 1.25;
+}
+
+#okazil {
+    --angle-offset: 90deg;
+    background-image: url(/img/okazil.gif), url(/img/okazilmask.gif);
+}
+
+#kizket {
+    --angle-offset: 210deg;
+    background-image: url(/img/kizket.gif), url(/img/kizketmask.gif);
+}
+
+#kiryo {
+    --angle-offset: 330deg;
+    background-image: url(/img/kiryo.gif), url(/img/kiryomask.gif);
+}
